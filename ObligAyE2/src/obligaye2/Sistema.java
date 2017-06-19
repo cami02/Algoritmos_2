@@ -39,6 +39,7 @@ public class Sistema implements ISistema {
                 vuelos = null;
                 compras = null;
                 empresas = null;
+                cantMaxCiu = 0;
 		return new TipoRetorno(TipoError.OK);
 	}
 
@@ -121,19 +122,19 @@ public class Sistema implements ISistema {
 	@Override
 	public TipoRetorno reporteEnviosPorEmpresa() {
 		
-            String valor = "";
+            String valorString = "";
                 for (Empresa x : empresas) {
                 
-                    valor += x.getNombre() +";"+ x.getCantCompras()+"|";
+                    valorString += x.getNombre() +";"+ x.getCantCompras()+"|";
             }
-                valor = valor.substring(0, valor.length()-2);
-		return new TipoRetorno(valor);
+                valorString = valorString.substring(0, valorString.length()-2);
+		return new TipoRetorno(valorString);
 	}
 
 	@Override
 	public TipoRetorno reporteEnviosPorCliente() {
 		
-            String valor = "";
+            String valorString = "";
             int cant = 0;
                 for (Cliente x : clientes) {
                 
@@ -145,11 +146,11 @@ public class Sistema implements ISistema {
                        }
                    }
                    
-                   valor += x.getNombreCliente() +";"+ cant+"|";
+                   valorString += x.getNombreCliente() +";"+ cant+"|";
             }
                 
-                valor = valor.substring(0, valor.length()-2);
-		return new TipoRetorno(valor);
+                valorString = valorString.substring(0, valorString.length()-2);
+		return new TipoRetorno(valorString);
 	}
 
 	@Override
@@ -187,12 +188,22 @@ public class Sistema implements ISistema {
 
 	@Override
 	public TipoRetorno mapaEstado() {
-		String URL = 
-         "https://maps.googleapis.com/maps/api/staticmap?center=Australia&size=640x400&style=element:labels|"
-                        + "visibility:off&style=element:geometry.stroke|visibility:off&style=feature:landscape|"
+		
+            String cities = "";
+                for (Ciudad x : ciudades) {
+            
+                   cities += x.getNombre() +"|";
+            }
+            //cities = cities.substring(0, cities.length()-2);
+            String URL = 
+         "https://maps.googleapis.com/maps/api/staticmap?center=Montevideo,Uruguay&size=640x400&style=element:labels|"
+                        + "markers=color:red%7label:C|" + cities
+                        + "visibility:on&style=element:geometry.stroke|visibility:on&style=feature:landscape|"
                         + "element:geometry|saturation:-100&style=feature:water|saturation:-100|"
                         + "invert_lightness:true&key=AIzaSyDhfTvXeR1_KtzXelJWoMu64w9RaZ7bmE8";
-		return new TipoRetorno(TipoError.NO_IMPLEMENTADA);
+            
+            
+		return new TipoRetorno(TipoError.OK);
 	}
 		
 }

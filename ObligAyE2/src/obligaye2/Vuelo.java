@@ -92,6 +92,19 @@ public class Vuelo {
         this.tiempo_minutos = tiempo_minutos;
     }
     
-    
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vuelo other = (Vuelo) obj;
+		if ((coordXi != other.coordXi && coordYi != other.coordYi) && 
+                        (coordXf != other.coordXf && coordYf != other.coordYf))
+			return false;
+		return true;
+	}
     
 }
